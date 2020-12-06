@@ -11,7 +11,7 @@ of service objects with interactors.
 This is a Ruby on Rails API only application. Since we only need API to demonstrate the patterns. Let's create the app with
 
 ```bash
-rails new sentry-rails \
+rails new rails-service \
   --skip-action-text \
   --skip-active-storage \
   --skip-javascript \
@@ -28,7 +28,7 @@ We will skip some of the parts that we know are not necessary for this demonstra
 rails db:migrate db:seed
 ```
 
-The controllers are versioned into v1, v2, v3. Each controller shows how to tackle the problem with user registration.
+The controllers are versioned into `v1`, `v2`, `v3`. Each controller shows how to tackle the problem with user registration.
 This controller handles user creation, subscription creation for user, adding a dedicated support person for the user, sending welcome email and update time series based metrics table for revenue calculation.
 You can hit the api with
 
@@ -41,7 +41,7 @@ curl -XPOST -H "Content-type: application/json" -d '{
 }' 'localhost:3000/api/v1/user/create'
 ```
 
-Replace v1 with v2 or v3 to hit different versions of same controller
+Replace `v1` with `v2` or `v3` to hit different versions of same controller
 
 ## Contribution
 Want to contribute? Great!
