@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_095117) do
 
   create_table "metrics", force: :cascade do |t|
     t.integer "user_count"
-    t.integer "revenue"
+    t.float "revenue"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_095117) do
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_products_on_name", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_095117) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_supports_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_095117) do
     t.integer "support_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "subscriptions", "products"

@@ -1,3 +1,2 @@
-
-class Metric
+class Metric < ApplicationRecord
 end
