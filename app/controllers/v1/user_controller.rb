@@ -34,7 +34,7 @@ module V1
 
                 # Send welcome email
                 UserMailer.with(user: user).welcome_email.deliver_later
-                render json: sub
+                render json: { user: user, subscription: sub }
             end
         end
     end
