@@ -1,4 +1,4 @@
-class CreateUserService
+class CreateUserService < ApplicationService
     attr_reader :name, :email, :pass
 
     def initialize(name, email, pass)

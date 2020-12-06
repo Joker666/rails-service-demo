@@ -1,39 +1,25 @@
 module V2
     class UserController < ApplicationController
         def create
-            ActiveRecord::Base.transaction do
-                # Create User
-                begin
-                    CreateUserService.new(params[:name], params[:email], params[:pass]).call
-
+            begin
+                ActiveRecord::Base.transaction do
+                    # Create User
+                    user = CreateUserService.call(params[:name], params[:email], params[:pass])
+                    # Get Product
+                    product = GetProductService.call(params[:product_name])
                     # Create Subscription
-                    product = Product.find_by name: params[:product_name]
-                    unless product.present?
-                        render json: { error: "Product doesn't exist" }
-                        return
-                    end
-
-                    sub = Subscription.create(product_id: product[:id], user_id: user[:id], expires_at: Time.now + 30.day)
-
+                    sub = CreateSubscriptionService.call(product[:id], user[:id])
                     # Assign support person
-                    support = Support.find_by name: 'Jessica'
-                    unless support.present?
-                        render json: { error: "Couldn't assign a support person" }
-                        return
-                    end
-                    user.support_id = support[:id]
-                    user.save
-
+                    AssignSupportService.call(user, 'Jessica')
                     # Update Metrics
-                    Metric.create(user_count: 1, revenue: product.price)
-
+                    UpdateMetricsService.call(product)
                     # Send welcome email
-                    UserMailer.with(user: user).welcome_email.deliver_later
+                    WelcomeEmailService.call(user)
                     render json: { user: user, subscription: sub }
-                rescue StandardError => e
-                    render json: { error: e }
-                    return
                 end
+            rescue StandardError => e
+                render json: { error: e }
+                return
             end
         end
     end
