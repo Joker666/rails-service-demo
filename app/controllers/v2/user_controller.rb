@@ -19,7 +19,6 @@ module V2
                 end
             rescue StandardError => e
                 render json: { error: e }
-                return
             end
         end
     end

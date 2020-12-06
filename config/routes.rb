@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     namespace :v2 do
       concerns :api_base
     end
+
+    namespace :v3 do
+      concerns :api_base
+    end
   end
 
 end
