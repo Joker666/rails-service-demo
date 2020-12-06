@@ -33,7 +33,7 @@ module V1
                 Metric.create(user_count: 1, revenue: product.price)
 
                 # Send welcome email
-
+                UserMailer.with(user: user).welcome_email.deliver_later
                 render json: sub
             end
         end
