@@ -1,7 +1,7 @@
 class IUpdateMetrics
-    include Interactor
+  include Interactor
 
-    def call
-        Metric.create(user_count: 1, revenue: context.product.price)
-    end
+  def call
+    Metric.create(user_count: 1, revenue: context.product.price)
+  end
 end
